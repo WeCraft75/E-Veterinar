@@ -3,358 +3,341 @@
 /* Created on:     21.11.2021 18:44:40                          */
 /*==============================================================*/
 
--- Create a new database called 'eveterinar'
--- Connect to the 'master' database to run this snippet
-USE master
-GO
--- Create the new database if it does not exist already
-IF NOT EXISTS (
-   SELECT name
-FROM sys.databases
-WHERE name = N'eveterinar'
-)
-CREATE DATABASE eveterinar
-GO
-
-USE eveterinar
-GO
-
 
 if exists (select 1
-from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-where r.fkeyid = object_id('EVIDENCA') and o.name = 'FK_EVIDENCA_JE_BILO_O_NAROCILO')
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('EVIDENCA') and o.name = 'FK_EVIDENCA_JE_BILO_O_NAROCILO')
 alter table EVIDENCA
    drop constraint FK_EVIDENCA_JE_BILO_O_NAROCILO
 go
 
 if exists (select 1
-from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-where r.fkeyid = object_id('EVIDENCA') and o.name = 'FK_EVIDENCA_JE_ZABELE_TERMIN')
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('EVIDENCA') and o.name = 'FK_EVIDENCA_JE_ZABELE_TERMIN')
 alter table EVIDENCA
    drop constraint FK_EVIDENCA_JE_ZABELE_TERMIN
 go
 
 if exists (select 1
-from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-where r.fkeyid = object_id('JE_BILA_OPRAVLJENA') and o.name = 'FK_JE_BILA__JE_BILA_O_STORITEV')
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('JE_BILA_OPRAVLJENA') and o.name = 'FK_JE_BILA__JE_BILA_O_STORITEV')
 alter table JE_BILA_OPRAVLJENA
    drop constraint FK_JE_BILA__JE_BILA_O_STORITEV
 go
 
 if exists (select 1
-from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-where r.fkeyid = object_id('JE_BILA_OPRAVLJENA') and o.name = 'FK_JE_BILA__JE_BILA_O_EVIDENCA')
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('JE_BILA_OPRAVLJENA') and o.name = 'FK_JE_BILA__JE_BILA_O_EVIDENCA')
 alter table JE_BILA_OPRAVLJENA
    drop constraint FK_JE_BILA__JE_BILA_O_EVIDENCA
 go
 
 if exists (select 1
-from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-where r.fkeyid = object_id('NAROCILO') and o.name = 'FK_NAROCILO_JE_NAROCI_STRANKA')
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('NAROCILO') and o.name = 'FK_NAROCILO_JE_NAROCI_STRANKA')
 alter table NAROCILO
    drop constraint FK_NAROCILO_JE_NAROCI_STRANKA
 go
 
 if exists (select 1
-from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-where r.fkeyid = object_id('NAROCILO') and o.name = 'FK_NAROCILO_PRIPADA_RACUN')
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('NAROCILO') and o.name = 'FK_NAROCILO_PRIPADA_RACUN')
 alter table NAROCILO
    drop constraint FK_NAROCILO_PRIPADA_RACUN
 go
 
 if exists (select 1
-from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-where r.fkeyid = object_id('RACUN') and o.name = 'FK_RACUN_PRIPADA2_NAROCILO')
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('RACUN') and o.name = 'FK_RACUN_PRIPADA2_NAROCILO')
 alter table RACUN
    drop constraint FK_RACUN_PRIPADA2_NAROCILO
 go
 
 if exists (select 1
-from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-where r.fkeyid = object_id('STRANKA') and o.name = 'FK_STRANKA_JE_NA_POSTA')
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('STRANKA') and o.name = 'FK_STRANKA_JE_NA_POSTA')
 alter table STRANKA
    drop constraint FK_STRANKA_JE_NA_POSTA
 go
 
 if exists (select 1
-from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-where r.fkeyid = object_id('TERMIN') and o.name = 'FK_TERMIN_JE_PREVZE_STRANKA')
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('TERMIN') and o.name = 'FK_TERMIN_JE_PREVZE_STRANKA')
 alter table TERMIN
    drop constraint FK_TERMIN_JE_PREVZE_STRANKA
 go
 
 if exists (select 1
-from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-where r.fkeyid = object_id('TERMIN') and o.name = 'FK_TERMIN_JE_RAZPIS_VETERINA')
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('TERMIN') and o.name = 'FK_TERMIN_JE_RAZPIS_VETERINA')
 alter table TERMIN
    drop constraint FK_TERMIN_JE_RAZPIS_VETERINA
 go
 
 if exists (select 1
-from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-where r.fkeyid = object_id('VETERINAR') and o.name = 'FK_VETERINA_IMA_VETER_POSTA')
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('VETERINAR') and o.name = 'FK_VETERINA_IMA_VETER_POSTA')
 alter table VETERINAR
    drop constraint FK_VETERINA_IMA_VETER_POSTA
 go
 
 if exists (select 1
-from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-where r.fkeyid = object_id('ZAHTEVA') and o.name = 'FK_ZAHTEVA_ZAHTEVA_NAROCILO')
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ZAHTEVA') and o.name = 'FK_ZAHTEVA_ZAHTEVA_NAROCILO')
 alter table ZAHTEVA
    drop constraint FK_ZAHTEVA_ZAHTEVA_NAROCILO
 go
 
 if exists (select 1
-from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-where r.fkeyid = object_id('ZAHTEVA') and o.name = 'FK_ZAHTEVA_ZAHTEVA2_ZALOGA')
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ZAHTEVA') and o.name = 'FK_ZAHTEVA_ZAHTEVA2_ZALOGA')
 alter table ZAHTEVA
    drop constraint FK_ZAHTEVA_ZAHTEVA2_ZALOGA
 go
 
 if exists (select 1
-from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-where r.fkeyid = object_id('ZALOGA') and o.name = 'FK_ZALOGA_IMA_VETERINA')
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ZALOGA') and o.name = 'FK_ZALOGA_IMA_VETERINA')
 alter table ZALOGA
    drop constraint FK_ZALOGA_IMA_VETERINA
 go
 
 if exists (select 1
-from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-where r.fkeyid = object_id('ZALOGA') and o.name = 'FK_ZALOGA_JE_OD_IZDELEK')
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ZALOGA') and o.name = 'FK_ZALOGA_JE_OD_IZDELEK')
 alter table ZALOGA
    drop constraint FK_ZALOGA_JE_OD_IZDELEK
 go
 
 if exists (select 1
-from sysindexes
-where  id    = object_id('EVIDENCA')
-   and name  = 'JE_BILO_OPRAVLJENO_FK'
-   and indid > 0
-   and indid < 255)
+            from  sysindexes
+           where  id    = object_id('EVIDENCA')
+            and   name  = 'JE_BILO_OPRAVLJENO_FK'
+            and   indid > 0
+            and   indid < 255)
    drop index EVIDENCA.JE_BILO_OPRAVLJENO_FK
 go
 
 if exists (select 1
-from sysindexes
-where  id    = object_id('EVIDENCA')
-   and name  = 'JE_ZABELEZENO_V_FK'
-   and indid > 0
-   and indid < 255)
+            from  sysindexes
+           where  id    = object_id('EVIDENCA')
+            and   name  = 'JE_ZABELEZENO_V_FK'
+            and   indid > 0
+            and   indid < 255)
    drop index EVIDENCA.JE_ZABELEZENO_V_FK
 go
 
 if exists (select 1
-from sysobjects
-where  id = object_id('EVIDENCA')
-   and type = 'U')
+            from  sysobjects
+           where  id = object_id('EVIDENCA')
+            and   type = 'U')
    drop table EVIDENCA
 go
 
 if exists (select 1
-from sysobjects
-where  id = object_id('IZDELEK')
-   and type = 'U')
+            from  sysobjects
+           where  id = object_id('IZDELEK')
+            and   type = 'U')
    drop table IZDELEK
 go
 
 if exists (select 1
-from sysindexes
-where  id    = object_id('JE_BILA_OPRAVLJENA')
-   and name  = 'JE_BILA_OPRAVLJENA2_FK'
-   and indid > 0
-   and indid < 255)
+            from  sysindexes
+           where  id    = object_id('JE_BILA_OPRAVLJENA')
+            and   name  = 'JE_BILA_OPRAVLJENA2_FK'
+            and   indid > 0
+            and   indid < 255)
    drop index JE_BILA_OPRAVLJENA.JE_BILA_OPRAVLJENA2_FK
 go
 
 if exists (select 1
-from sysindexes
-where  id    = object_id('JE_BILA_OPRAVLJENA')
-   and name  = 'JE_BILA_OPRAVLJENA_FK'
-   and indid > 0
-   and indid < 255)
+            from  sysindexes
+           where  id    = object_id('JE_BILA_OPRAVLJENA')
+            and   name  = 'JE_BILA_OPRAVLJENA_FK'
+            and   indid > 0
+            and   indid < 255)
    drop index JE_BILA_OPRAVLJENA.JE_BILA_OPRAVLJENA_FK
 go
 
 if exists (select 1
-from sysobjects
-where  id = object_id('JE_BILA_OPRAVLJENA')
-   and type = 'U')
+            from  sysobjects
+           where  id = object_id('JE_BILA_OPRAVLJENA')
+            and   type = 'U')
    drop table JE_BILA_OPRAVLJENA
 go
 
 if exists (select 1
-from sysindexes
-where  id    = object_id('NAROCILO')
-   and name  = 'PRIPADA_FK'
-   and indid > 0
-   and indid < 255)
+            from  sysindexes
+           where  id    = object_id('NAROCILO')
+            and   name  = 'PRIPADA_FK'
+            and   indid > 0
+            and   indid < 255)
    drop index NAROCILO.PRIPADA_FK
 go
 
 if exists (select 1
-from sysindexes
-where  id    = object_id('NAROCILO')
-   and name  = 'JE_NAROCILA_FK'
-   and indid > 0
-   and indid < 255)
+            from  sysindexes
+           where  id    = object_id('NAROCILO')
+            and   name  = 'JE_NAROCILA_FK'
+            and   indid > 0
+            and   indid < 255)
    drop index NAROCILO.JE_NAROCILA_FK
 go
 
 if exists (select 1
-from sysobjects
-where  id = object_id('NAROCILO')
-   and type = 'U')
+            from  sysobjects
+           where  id = object_id('NAROCILO')
+            and   type = 'U')
    drop table NAROCILO
 go
 
 if exists (select 1
-from sysobjects
-where  id = object_id('POSTA')
-   and type = 'U')
+            from  sysobjects
+           where  id = object_id('POSTA')
+            and   type = 'U')
    drop table POSTA
 go
 
 if exists (select 1
-from sysindexes
-where  id    = object_id('RACUN')
-   and name  = 'PRIPADA2_FK'
-   and indid > 0
-   and indid < 255)
+            from  sysindexes
+           where  id    = object_id('RACUN')
+            and   name  = 'PRIPADA2_FK'
+            and   indid > 0
+            and   indid < 255)
    drop index RACUN.PRIPADA2_FK
 go
 
 if exists (select 1
-from sysobjects
-where  id = object_id('RACUN')
-   and type = 'U')
+            from  sysobjects
+           where  id = object_id('RACUN')
+            and   type = 'U')
    drop table RACUN
 go
 
 if exists (select 1
-from sysobjects
-where  id = object_id('STORITEV')
-   and type = 'U')
+            from  sysobjects
+           where  id = object_id('STORITEV')
+            and   type = 'U')
    drop table STORITEV
 go
 
 if exists (select 1
-from sysindexes
-where  id    = object_id('STRANKA')
-   and name  = 'JE_NA_FK'
-   and indid > 0
-   and indid < 255)
+            from  sysindexes
+           where  id    = object_id('STRANKA')
+            and   name  = 'JE_NA_FK'
+            and   indid > 0
+            and   indid < 255)
    drop index STRANKA.JE_NA_FK
 go
 
 if exists (select 1
-from sysobjects
-where  id = object_id('STRANKA')
-   and type = 'U')
+            from  sysobjects
+           where  id = object_id('STRANKA')
+            and   type = 'U')
    drop table STRANKA
 go
 
 if exists (select 1
-from sysindexes
-where  id    = object_id('TERMIN')
-   and name  = 'JE_RAZPISAL_FK'
-   and indid > 0
-   and indid < 255)
+            from  sysindexes
+           where  id    = object_id('TERMIN')
+            and   name  = 'JE_RAZPISAL_FK'
+            and   indid > 0
+            and   indid < 255)
    drop index TERMIN.JE_RAZPISAL_FK
 go
 
 if exists (select 1
-from sysindexes
-where  id    = object_id('TERMIN')
-   and name  = 'JE_PREVZELA_FK'
-   and indid > 0
-   and indid < 255)
+            from  sysindexes
+           where  id    = object_id('TERMIN')
+            and   name  = 'JE_PREVZELA_FK'
+            and   indid > 0
+            and   indid < 255)
    drop index TERMIN.JE_PREVZELA_FK
 go
 
 if exists (select 1
-from sysobjects
-where  id = object_id('TERMIN')
-   and type = 'U')
+            from  sysobjects
+           where  id = object_id('TERMIN')
+            and   type = 'U')
    drop table TERMIN
 go
 
 if exists (select 1
-from sysindexes
-where  id    = object_id('VETERINAR')
-   and name  = 'IMA_VETERINO_NA_FK'
-   and indid > 0
-   and indid < 255)
+            from  sysindexes
+           where  id    = object_id('VETERINAR')
+            and   name  = 'IMA_VETERINO_NA_FK'
+            and   indid > 0
+            and   indid < 255)
    drop index VETERINAR.IMA_VETERINO_NA_FK
 go
 
 if exists (select 1
-from sysobjects
-where  id = object_id('VETERINAR')
-   and type = 'U')
+            from  sysobjects
+           where  id = object_id('VETERINAR')
+            and   type = 'U')
    drop table VETERINAR
 go
 
 if exists (select 1
-from sysindexes
-where  id    = object_id('ZAHTEVA')
-   and name  = 'ZAHTEVA2_FK'
-   and indid > 0
-   and indid < 255)
+            from  sysindexes
+           where  id    = object_id('ZAHTEVA')
+            and   name  = 'ZAHTEVA2_FK'
+            and   indid > 0
+            and   indid < 255)
    drop index ZAHTEVA.ZAHTEVA2_FK
 go
 
 if exists (select 1
-from sysindexes
-where  id    = object_id('ZAHTEVA')
-   and name  = 'ZAHTEVA_FK'
-   and indid > 0
-   and indid < 255)
+            from  sysindexes
+           where  id    = object_id('ZAHTEVA')
+            and   name  = 'ZAHTEVA_FK'
+            and   indid > 0
+            and   indid < 255)
    drop index ZAHTEVA.ZAHTEVA_FK
 go
 
 if exists (select 1
-from sysobjects
-where  id = object_id('ZAHTEVA')
-   and type = 'U')
+            from  sysobjects
+           where  id = object_id('ZAHTEVA')
+            and   type = 'U')
    drop table ZAHTEVA
 go
 
 if exists (select 1
-from sysindexes
-where  id    = object_id('ZALOGA')
-   and name  = 'IMA_FK'
-   and indid > 0
-   and indid < 255)
+            from  sysindexes
+           where  id    = object_id('ZALOGA')
+            and   name  = 'IMA_FK'
+            and   indid > 0
+            and   indid < 255)
    drop index ZALOGA.IMA_FK
 go
 
 if exists (select 1
-from sysindexes
-where  id    = object_id('ZALOGA')
-   and name  = 'JE_OD_FK'
-   and indid > 0
-   and indid < 255)
+            from  sysindexes
+           where  id    = object_id('ZALOGA')
+            and   name  = 'JE_OD_FK'
+            and   indid > 0
+            and   indid < 255)
    drop index ZALOGA.JE_OD_FK
 go
 
 if exists (select 1
-from sysobjects
-where  id = object_id('ZALOGA')
-   and type = 'U')
+            from  sysobjects
+           where  id = object_id('ZALOGA')
+            and   type = 'U')
    drop table ZALOGA
 go
 
 /*==============================================================*/
 /* Table: EVIDENCA                                              */
 /*==============================================================*/
-create table EVIDENCA
-(
-   ID_EVIDENCE numeric not null,
-   ID_VETERINAR numeric null,
-   DATUM_ZACETKA datetime null,
-   DATUM_KONCA datetime null,
-   ID_NAROCILO numeric not null,
-   CENA money not null,
+create table EVIDENCA (
+   ID_EVIDENCE          numeric              not null,
+   ID_VETERINAR         numeric              null,
+   DATUM_ZACETKA        datetime             null,
+   DATUM_KONCA          datetime             null,
+   ID_NAROCILO          numeric              not null,
+   CENA                 money                not null,
    constraint PK_EVIDENCA primary key nonclustered (ID_EVIDENCE)
 )
 go
@@ -380,12 +363,11 @@ go
 /*==============================================================*/
 /* Table: IZDELEK                                               */
 /*==============================================================*/
-create table IZDELEK
-(
-   ID_IZDELEK numeric not null,
-   IME varchar(100) not null,
-   CENA money not null,
-   OPIS varchar(1024) null,
+create table IZDELEK (
+   ID_IZDELEK           numeric              not null,
+   IME                  varchar(100)         not null,
+   CENA                 money                not null,
+   OPIS                 varchar(1024)        null,
    constraint PK_IZDELEK primary key nonclustered (ID_IZDELEK)
 )
 go
@@ -393,10 +375,9 @@ go
 /*==============================================================*/
 /* Table: JE_BILA_OPRAVLJENA                                    */
 /*==============================================================*/
-create table JE_BILA_OPRAVLJENA
-(
-   ID_STORITEV numeric not null,
-   ID_EVIDENCE numeric not null,
+create table JE_BILA_OPRAVLJENA (
+   ID_STORITEV          numeric              not null,
+   ID_EVIDENCE          numeric              not null,
    constraint PK_JE_BILA_OPRAVLJENA primary key (ID_STORITEV, ID_EVIDENCE)
 )
 go
@@ -420,13 +401,12 @@ go
 /*==============================================================*/
 /* Table: NAROCILO                                              */
 /*==============================================================*/
-create table NAROCILO
-(
-   ID_NAROCILO numeric not null,
-   ID_RACUNA numeric null,
-   ID_STRANKA numeric null,
-   ZAHTEVANA_KOLICINA numeric not null,
-   DATUM_NAROCILA datetime null,
+create table NAROCILO (
+   ID_NAROCILO          numeric              not null,
+   ID_RACUNA            numeric              null,
+   ID_STRANKA           numeric              null,
+   ZAHTEVANA_KOLICINA   numeric              not null,
+   DATUM_NAROCILA       datetime             null,
    constraint PK_NAROCILO primary key nonclustered (ID_NAROCILO)
 )
 go
@@ -450,10 +430,9 @@ go
 /*==============================================================*/
 /* Table: POSTA                                                 */
 /*==============================================================*/
-create table POSTA
-(
-   STEVILKA numeric not null,
-   NAZIV varchar(50) not null,
+create table POSTA (
+   STEVILKA             numeric              not null,
+   NAZIV                varchar(50)          not null,
    constraint PK_POSTA primary key nonclustered (STEVILKA)
 )
 go
@@ -461,11 +440,10 @@ go
 /*==============================================================*/
 /* Table: RACUN                                                 */
 /*==============================================================*/
-create table RACUN
-(
-   ID_RACUNA numeric not null,
-   ID_NAROCILO numeric not null,
-   DATUM_RACUNA datetime not null,
+create table RACUN (
+   ID_RACUNA            numeric              not null,
+   ID_NAROCILO          numeric              not null,
+   DATUM_RACUNA         datetime             not null,
    constraint PK_RACUN primary key nonclustered (ID_RACUNA)
 )
 go
@@ -481,10 +459,9 @@ go
 /*==============================================================*/
 /* Table: STORITEV                                              */
 /*==============================================================*/
-create table STORITEV
-(
-   ID_STORITEV numeric not null,
-   OPIS_STORITVE varchar(1024) null,
+create table STORITEV (
+   ID_STORITEV          numeric              not null,
+   OPIS_STORITVE        varchar(1024)        null,
    constraint PK_STORITEV primary key nonclustered (ID_STORITEV)
 )
 go
@@ -492,14 +469,13 @@ go
 /*==============================================================*/
 /* Table: STRANKA                                               */
 /*==============================================================*/
-create table STRANKA
-(
-   ID_STRANKA numeric not null,
-   STEVILKA numeric not null,
-   IME varchar(100) not null,
-   PRIIMEK varchar(100) not null,
-   NASLOV varchar(100) not null,
-   KRAJ varchar(150) not null,
+create table STRANKA (
+   ID_STRANKA           numeric              not null,
+   STEVILKA             numeric              not null,
+   IME                  varchar(100)         not null,
+   PRIIMEK              varchar(100)         not null,
+   NASLOV               varchar(100)         not null,
+   KRAJ                 varchar(150)         not null,
    constraint PK_STRANKA primary key nonclustered (ID_STRANKA)
 )
 go
@@ -515,14 +491,13 @@ go
 /*==============================================================*/
 /* Table: TERMIN                                                */
 /*==============================================================*/
-create table TERMIN
-(
-   ID_VETERINAR numeric not null,
-   DATUM_ZACETKA datetime not null,
-   DATUM_KONCA datetime not null,
-   ID_STRANKA numeric not null,
-   JE_ZASEDEN bit not null,
-   JE_POTRJEN bit not null,
+create table TERMIN (
+   ID_VETERINAR         numeric              not null,
+   DATUM_ZACETKA        datetime             not null,
+   DATUM_KONCA          datetime             not null,
+   ID_STRANKA           numeric              not null,
+   JE_ZASEDEN           bit                  not null,
+   JE_POTRJEN           bit                  not null,
    constraint PK_TERMIN primary key nonclustered (ID_VETERINAR, DATUM_ZACETKA, DATUM_KONCA)
 )
 go
@@ -546,14 +521,13 @@ go
 /*==============================================================*/
 /* Table: VETERINAR                                             */
 /*==============================================================*/
-create table VETERINAR
-(
-   ID_VETERINAR numeric not null,
-   STEVILKA numeric not null,
-   IME varchar(100) not null,
-   PRIIMEK varchar(100) not null,
-   KRAJ varchar(150) not null,
-   NA_DOM bit not null,
+create table VETERINAR (
+   ID_VETERINAR         numeric              not null,
+   STEVILKA             numeric              not null,
+   IME                  varchar(100)         not null,
+   PRIIMEK              varchar(100)         not null,
+   KRAJ                 varchar(150)         not null,
+   NA_DOM               bit                  not null,
    constraint PK_VETERINAR primary key nonclustered (ID_VETERINAR)
 )
 go
@@ -569,11 +543,10 @@ go
 /*==============================================================*/
 /* Table: ZAHTEVA                                               */
 /*==============================================================*/
-create table ZAHTEVA
-(
-   ID_NAROCILO numeric not null,
-   ID_IZDELEK numeric not null,
-   ID_VETERINAR numeric not null,
+create table ZAHTEVA (
+   ID_NAROCILO          numeric              not null,
+   ID_IZDELEK           numeric              not null,
+   ID_VETERINAR         numeric              not null,
    constraint PK_ZAHTEVA primary key (ID_IZDELEK, ID_NAROCILO, ID_VETERINAR)
 )
 go
@@ -598,11 +571,10 @@ go
 /*==============================================================*/
 /* Table: ZALOGA                                                */
 /*==============================================================*/
-create table ZALOGA
-(
-   ID_IZDELEK numeric not null,
-   ID_VETERINAR numeric not null,
-   KOLICINA numeric not null,
+create table ZALOGA (
+   ID_IZDELEK           numeric              not null,
+   ID_VETERINAR         numeric              not null,
+   KOLICINA             numeric              not null,
    constraint PK_ZALOGA primary key nonclustered (ID_IZDELEK, ID_VETERINAR)
 )
 go
