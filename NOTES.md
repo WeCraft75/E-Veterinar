@@ -3,6 +3,8 @@
 Create container with
 ```
 docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=StrongPassw0rd!" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-CU13-ubuntu-20.04
+docker ps -a
+docker rename [name of container] eveterinar
 ```
 
 The login credentials should be:
@@ -35,6 +37,6 @@ dotnet-aspnet-codegenerator controller -name TerminController -m Termin -dc E_Ve
 dotnet-aspnet-codegenerator controller -name VeterinarController -m Veterinar -dc E_Veterinar.Models -udl -outDir Controllers
 dotnet-aspnet-codegenerator controller -name ZalogaController -m Zaloga -dc E_Veterinar.Models -udl -outDir Controllers
 
-# it dont work
+# it dont work, you probably need to fix db
 dotnet-aspnet-codegenerator controller -name PostumController -m Postum -dc EVeterinarContext -udl -outDir Controllers
 ```

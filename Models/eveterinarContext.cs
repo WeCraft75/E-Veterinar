@@ -20,7 +20,6 @@ namespace E_Veterinar.Models
         public virtual DbSet<Izdelek> Izdeleks { get; set; } = null!;
         public virtual DbSet<Narocilo> Narocilos { get; set; } = null!;
         public virtual DbSet<Postum> Posta { get; set; } = null!;
-        public virtual DbSet<Racun> Racuns { get; set; } = null!;
         public virtual DbSet<Storitev> Storitevs { get; set; } = null!;
         public virtual DbSet<Stranka> Strankas { get; set; } = null!;
         public virtual DbSet<Termin> Termins { get; set; } = null!;
@@ -120,8 +119,6 @@ namespace E_Veterinar.Models
 
                 entity.HasIndex(e => e.IdStranka, "JE_NAROCILA_FK");
 
-                entity.HasIndex(e => e.IdRacuna, "PRIPADA_FK");
-
                 entity.Property(e => e.IdNarocilo)
                     .HasColumnType("numeric(18, 0)")
                     .HasColumnName("ID_NAROCILO");
@@ -130,10 +127,6 @@ namespace E_Veterinar.Models
                     .HasColumnType("datetime")
                     .HasColumnName("DATUM_NAROCILA");
 
-                entity.Property(e => e.IdRacuna)
-                    .HasColumnType("numeric(18, 0)")
-                    .HasColumnName("ID_RACUNA");
-
                 entity.Property(e => e.IdStranka)
                     .HasColumnType("numeric(18, 0)")
                     .HasColumnName("ID_STRANKA");
@@ -141,11 +134,6 @@ namespace E_Veterinar.Models
                 entity.Property(e => e.ZahtevanaKolicina)
                     .HasColumnType("numeric(18, 0)")
                     .HasColumnName("ZAHTEVANA_KOLICINA");
-
-                entity.HasOne(d => d.IdRacunaNavigation)
-                    .WithMany(p => p.Narocilos)
-                    .HasForeignKey(d => d.IdRacuna)
-                    .HasConstraintName("FK_NAROCILO_PRIPADA_RACUN");
 
                 entity.HasOne(d => d.IdStrankaNavigation)
                     .WithMany(p => p.Narocilos)
@@ -168,34 +156,6 @@ namespace E_Veterinar.Models
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("NAZIV");
-            });
-
-            modelBuilder.Entity<Racun>(entity =>
-            {
-                entity.HasKey(e => e.IdRacuna)
-                    .IsClustered(false);
-
-                entity.ToTable("RACUN");
-
-                entity.HasIndex(e => e.IdNarocilo, "PRIPADA2_FK");
-
-                entity.Property(e => e.IdRacuna)
-                    .HasColumnType("numeric(18, 0)")
-                    .HasColumnName("ID_RACUNA");
-
-                entity.Property(e => e.DatumRacuna)
-                    .HasColumnType("datetime")
-                    .HasColumnName("DATUM_RACUNA");
-
-                entity.Property(e => e.IdNarocilo)
-                    .HasColumnType("numeric(18, 0)")
-                    .HasColumnName("ID_NAROCILO");
-
-                entity.HasOne(d => d.IdNarociloNavigation)
-                    .WithMany(p => p.Racuns)
-                    .HasForeignKey(d => d.IdNarocilo)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_RACUN_PRIPADA2_NAROCILO");
             });
 
             modelBuilder.Entity<Storitev>(entity =>
@@ -367,8 +327,7 @@ namespace E_Veterinar.Models
 
             modelBuilder.Entity<Zaloga>(entity =>
             {
-                entity.HasKey(e => new { e.IdIzdelek, e.IdVeterinar })
-                    .IsClustered(false);
+                entity.HasKey(e => new { e.IdIzdelek, e.IdVeterinar });
 
                 entity.ToTable("ZALOGA");
 
