@@ -1,7 +1,12 @@
+using E_Veterinar.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<eveterinarContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("EVeterinarContext")));
 
 var app = builder.Build();
 

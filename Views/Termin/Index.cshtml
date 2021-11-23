@@ -1,0 +1,53 @@
+@model IEnumerable<E_Veterinar.Models.Termin>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.JeZaseden)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JePotrjen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdStrankaNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdVeterinarNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.JeZaseden)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JePotrjen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdStrankaNavigation.IdStranka)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdVeterinarNavigation.IdVeterinar)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
