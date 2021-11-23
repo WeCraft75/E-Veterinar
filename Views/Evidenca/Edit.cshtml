@@ -1,0 +1,51 @@
+@model E_Veterinar.Models.Evidenca
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Evidenca</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdEvidence" />
+            <div class="form-group">
+                <label asp-for="IdVeterinar" class="control-label"></label>
+                <select asp-for="IdVeterinar" class="form-control" asp-items="ViewBag.IdVeterinar"></select>
+                <span asp-validation-for="IdVeterinar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DatumZacetka" class="control-label"></label>
+                <select asp-for="DatumZacetka" class="form-control" asp-items="ViewBag.DatumZacetka"></select>
+                <span asp-validation-for="DatumZacetka" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DatumKonca" class="control-label"></label>
+                <select asp-for="DatumKonca" class="form-control" asp-items="ViewBag.DatumKonca"></select>
+                <span asp-validation-for="DatumKonca" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdNarocilo" class="control-label"></label>
+                <select asp-for="IdNarocilo" class="form-control" asp-items="ViewBag.IdNarocilo"></select>
+                <span asp-validation-for="IdNarocilo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cena" class="control-label"></label>
+                <input asp-for="Cena" class="form-control" />
+                <span asp-validation-for="Cena" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

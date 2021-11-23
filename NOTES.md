@@ -27,15 +27,14 @@ dotnet ef dbcontext scaffold 'Server=localhost;Database=eveterinar;User Id=sa;Pa
 ok, wtf, epic
 create controllers from models
 ```
-dotnet-aspnet-codegenerator controller -name EvidencaController -m Evidenca -dc E_Veterinar.Models -udl -outDir Controllers
-dotnet-aspnet-codegenerator controller -name IzdelekController -m Izdelek -dc E_Veterinar.Models -udl -outDir Controllers
-dotnet-aspnet-codegenerator controller -name NarociloController -m Narocilo -dc E_Veterinar.Models -udl -outDir Controllers
-dotnet-aspnet-codegenerator controller -name RacunController -m Racun -dc E_Veterinar.Models -udl -outDir Controllers
-dotnet-aspnet-codegenerator controller -name StoritevController -m Storitev -dc E_Veterinar.Models -udl -outDir Controllers
-dotnet-aspnet-codegenerator controller -name StrankaController -m Stranka -dc E_Veterinar.Models -udl -outDir Controllers
-dotnet-aspnet-codegenerator controller -name TerminController -m Termin -dc E_Veterinar.Models -udl -outDir Controllers
-dotnet-aspnet-codegenerator controller -name VeterinarController -m Veterinar -dc E_Veterinar.Models -udl -outDir Controllers
-dotnet-aspnet-codegenerator controller -name ZalogaController -m Zaloga -dc E_Veterinar.Models -udl -outDir Controllers
+dotnet-aspnet-codegenerator controller -name EvidencaController -m Evidenca -dc E_Veterinar.Data.eveterinarContext -udl -outDir Controllers
+dotnet-aspnet-codegenerator controller -name IzdelekController -m Izdelek -dc E_Veterinar.Data.eveterinarContext -udl -outDir Controllers
+dotnet-aspnet-codegenerator controller -name NarociloController -m Narocilo -dc E_Veterinar.Data.eveterinarContext -udl -outDir Controllers
+dotnet-aspnet-codegenerator controller -name StoritevController -m Storitev -dc E_Veterinar.Data.eveterinarContext -udl -outDir Controllers
+dotnet-aspnet-codegenerator controller -name StrankaController -m Stranka -dc E_Veterinar.Data.eveterinarContext -udl -outDir Controllers
+dotnet-aspnet-codegenerator controller -name TerminController -m Termin -dc E_Veterinar.Data.eveterinarContext -udl -outDir Controllers
+dotnet-aspnet-codegenerator controller -name VeterinarController -m Veterinar -dc E_Veterinar.Data.eveterinarContext -udl -outDir Controllers
+dotnet-aspnet-codegenerator controller -name ZalogaController -m Zaloga -dc E_Veterinar.Data.eveterinarContext -udl -outDir Controllers
 
 # it dont work, you probably need to fix db
 dotnet-aspnet-codegenerator controller -name PostumController -m Postum -dc EVeterinarContext -udl -outDir Controllers

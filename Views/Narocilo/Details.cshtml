@@ -1,0 +1,36 @@
+@model E_Veterinar.Models.Narocilo
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Narocilo</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ZahtevanaKolicina)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ZahtevanaKolicina)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DatumNarocila)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DatumNarocila)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdStrankaNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdStrankaNavigation.IdStranka)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.IdNarocilo">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

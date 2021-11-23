@@ -1,9 +1,10 @@
 ﻿using System;
+using E_Veterinar.Models;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace E_Veterinar.Models
+namespace E_Veterinar.Data
 {
     public partial class eveterinarContext : DbContext
     {
