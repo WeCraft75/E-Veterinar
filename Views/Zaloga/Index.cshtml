@@ -4,22 +4,22 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
+<h1>Pregled zaloge</h1>
+<hr>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Dodaj v zalogo</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Kolicina)
+                Količina
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdIzdelekNavigation)
+                Izdelek
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdVeterinarNavigation)
+                Vnesel
             </th>
             <th></th>
         </tr>
@@ -31,15 +31,16 @@
                 @Html.DisplayFor(modelItem => item.Kolicina)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdIzdelekNavigation.IdIzdelek)
+                @Html.DisplayFor(modelItem => item.IdIzdelekNavigation.Ime)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdVeterinarNavigation.IdVeterinar)
+                @Html.DisplayFor(modelItem => item.IdVeterinarNavigation.Ime)
+                @Html.DisplayFor(modelItem => item.IdVeterinarNavigation.Priimek)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            <td style="text-align:right">
+                @Html.ActionLink("Spremeni", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Podrobnosti", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Izbriši vnos", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
 }
