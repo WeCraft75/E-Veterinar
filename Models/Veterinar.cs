@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace E_Veterinar.Models
 {
@@ -21,5 +22,14 @@ namespace E_Veterinar.Models
         public virtual Postum StevilkaNavigation { get; set; } = null!;
         public virtual ICollection<Termin> Termins { get; set; }
         public virtual ICollection<Zaloga> Zalogas { get; set; }
+
+        [NotMapped]
+        public string FullName
+        {
+            get
+            {
+                return Ime + " " + Priimek;
+            }
+        }
     }
 }

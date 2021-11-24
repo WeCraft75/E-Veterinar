@@ -16,7 +16,6 @@ namespace E_Veterinar.Models
 
         public virtual Izdelek IdIzdelekNavigation { get; set; } = null!;
         public virtual Veterinar IdVeterinarNavigation { get; set; } = null!;
-
         public virtual ICollection<Narocilo> IdNarocilos { get; set; }
     }
 }
