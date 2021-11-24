@@ -27,9 +27,9 @@ namespace E_Veterinar.Controllers
         }
 
         // GET: Zaloga/Details/5
-        public async Task<IActionResult> Details(decimal? id)
+        public async Task<IActionResult> Details(decimal IdIzdelek, decimal IdVeterinar)
         {
-            if (id == null)
+            if (IdIzdelek == null || IdVeterinar == null)
             {
                 return NotFound();
             }
@@ -37,7 +37,7 @@ namespace E_Veterinar.Controllers
             var zaloga = await _context.Zalogas
                 .Include(z => z.IdIzdelekNavigation)
                 .Include(z => z.IdVeterinarNavigation)
-                .FirstOrDefaultAsync(m => m.IdIzdelek == id);
+                .FirstOrDefaultAsync(m => m.IdIzdelek == IdIzdelek);
             if (zaloga == null)
             {
                 return NotFound();
@@ -49,8 +49,8 @@ namespace E_Veterinar.Controllers
         // GET: Zaloga/Create
         public IActionResult Create()
         {
-            ViewData["IdIzdelek"] = new SelectList(_context.Izdeleks, "IdIzdelek", "IdIzdelek");
-            ViewData["IdVeterinar"] = new SelectList(_context.Veterinars, "IdVeterinar", "IdVeterinar");
+            ViewData["IdIzdelek"] = new SelectList(_context.Izdeleks, "IdIzdelek", "Ime");
+            ViewData["IdVeterinar"] = new SelectList(_context.Veterinars, "IdVeterinar", "FullName");
             return View();
         }
 
@@ -61,8 +61,16 @@ namespace E_Veterinar.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdIzdelek,IdVeterinar,Kolicina")] Zaloga zaloga)
         {
+            Console.WriteLine(zaloga.IdIzdelek);
+            Console.WriteLine(zaloga.IdVeterinar);
+            Console.WriteLine(zaloga.Kolicina);
+
+            ModelState.Remove("IdIzdelekNavigation");
+            ModelState.Remove("IdVeterinarNavigation");
             if (ModelState.IsValid)
             {
+                zaloga.IdIzdelekNavigation = _context.Izdeleks.Find(zaloga.IdIzdelek);
+                zaloga.IdVeterinarNavigation = _context.Veterinars.Find(zaloga.IdVeterinar);
                 _context.Add(zaloga);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -73,14 +81,14 @@ namespace E_Veterinar.Controllers
         }
 
         // GET: Zaloga/Edit/5
-        public async Task<IActionResult> Edit(decimal? id)
+        public async Task<IActionResult> Edit(decimal IdIzdelek, decimal IdVeterinar)
         {
-            if (id == null)
+            if (IdIzdelek == null || IdVeterinar == null)
             {
                 return NotFound();
             }
 
-            var zaloga = await _context.Zalogas.FindAsync(id);
+            var zaloga = await _context.Zalogas.FindAsync(IdIzdelek, IdVeterinar);
             if (zaloga == null)
             {
                 return NotFound();
@@ -95,13 +103,16 @@ namespace E_Veterinar.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(decimal id, [Bind("IdIzdelek,IdVeterinar,Kolicina")] Zaloga zaloga)
+        public async Task<IActionResult> Edit(decimal IdIzdelek, decimal IdVeterinar, [Bind("IdIzdelek,IdVeterinar,Kolicina")] Zaloga zaloga)
         {
-            if (id != zaloga.IdIzdelek)
+            if (IdIzdelek != zaloga.IdIzdelek && IdVeterinar != zaloga.IdVeterinar)
             {
                 return NotFound();
             }
 
+            ModelState.Remove("IdIzdelekNavigation");
+            ModelState.Remove("IdVeterinarNavigation");
+        
             if (ModelState.IsValid)
             {
                 try
@@ -111,7 +122,7 @@ namespace E_Veterinar.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ZalogaExists(zaloga.IdIzdelek))
+                    if (!ZalogaExists(zaloga.IdIzdelek, zaloga.IdVeterinar))
                     {
                         return NotFound();
                     }
@@ -128,9 +139,9 @@ namespace E_Veterinar.Controllers
         }
 
         // GET: Zaloga/Delete/5
-        public async Task<IActionResult> Delete(decimal? id)
+        public async Task<IActionResult> Delete(decimal IdIzdelek, decimal IdVeterinar)
         {
-            if (id == null)
+            if (IdIzdelek == null || IdVeterinar == null)
             {
                 return NotFound();
             }
@@ -138,7 +149,7 @@ namespace E_Veterinar.Controllers
             var zaloga = await _context.Zalogas
                 .Include(z => z.IdIzdelekNavigation)
                 .Include(z => z.IdVeterinarNavigation)
-                .FirstOrDefaultAsync(m => m.IdIzdelek == id);
+                .FirstOrDefaultAsync(m => m.IdIzdelek == IdIzdelek);
             if (zaloga == null)
             {
                 return NotFound();
@@ -150,17 +161,17 @@ namespace E_Veterinar.Controllers
         // POST: Zaloga/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(decimal id)
+        public async Task<IActionResult> DeleteConfirmed(decimal IdIzdelek, decimal IdVeterinar)
         {
-            var zaloga = await _context.Zalogas.FindAsync(id);
+            var zaloga = await _context.Zalogas.FindAsync(IdIzdelek, IdVeterinar);
             _context.Zalogas.Remove(zaloga);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ZalogaExists(decimal id)
+        private bool ZalogaExists(decimal IdIzdelek, decimal IdVeterinar)
         {
-            return _context.Zalogas.Any(e => e.IdIzdelek == id);
+            return _context.Zalogas.Any(e => e.IdIzdelek == IdIzdelek && e.IdVeterinar == IdVeterinar);
         }
     }
 }

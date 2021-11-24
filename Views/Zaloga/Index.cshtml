@@ -38,9 +38,9 @@
                 @Html.DisplayFor(modelItem => item.IdVeterinarNavigation.Priimek)
             </td>
             <td style="text-align:right">
-                @Html.ActionLink("Spremeni", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Podrobnosti", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Izbriši vnos", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Spremeni vnos", "Edit", new { IdIzdelek=item.IdIzdelekNavigation.IdIzdelek, IdVeterinar=item.IdVeterinarNavigation.IdVeterinar }) |
+                @Html.ActionLink("Podrobnosti izdelka", "Details", new { IdIzdelek=item.IdIzdelekNavigation.IdIzdelek, IdVeterinar=item.IdVeterinarNavigation.IdVeterinar }) |
+                @Html.ActionLink("Izbriši vnos", "Delete", new { IdIzdelek=item.IdIzdelekNavigation.IdIzdelek, IdVeterinar=item.IdVeterinarNavigation.IdVeterinar })
             </td>
         </tr>
 }
