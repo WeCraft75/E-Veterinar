@@ -54,8 +54,7 @@ dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore --version 6
 dotnet add package Microsoft.AspNetCore.Identity.UI --version 6.0.0-rc.2.21480.10
 dotnet add package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore --version 6.0.0-rc.2.21480.10
 ```
-create a file 
-and add the following to it
+create a file  odels\ApplicationUser.cs and add the following to it
 ```
 using Microsoft.AspNetCore.Identity;
 
@@ -70,3 +69,39 @@ namespace E_Veterinar.Models
     }
 }
 ```
+potem v eveterinarContext dodaj dependency `using Microsoft.AspNetCore.Identity.EntityFrameworkCore;` in spremeni dedovanje na `: IdentityDbContext<ApplicationUser>` . Dodaj še `base.OnModelCreating(modelBuilder);` za `OnModelCreatingPartial(modelBuilder);`
+
+nato
+```
+dotnet ef migrations add AppUser
+# izbrišemo obstoječo bazo s podatki in nato ustvarimo novo, to je varno, ne bi smelo povzročiti težav
+dotnet ef database drop
+dotnet ef database update
+# generiramo login stran
+dotnet-aspnet-codegenerator identity -dc E_Veterinar.Data.eveterinarContext -fi "Account.Register;Account.Login;Account.Logout;Account.RegisterConfirmation" --generateLayout
+```
+
+nato v Program.cs spremeni
+```
+# dodaj
+using web.Models;
+
+# nastavi spremenljivko connectionString za .useSqlServer(connectionString)
+var connectionString = builder.Configuration.GetConnectionString("EVeterinaContext");
+
+// odstrani stari .AddDbContext
+//builder.Services.AddDbContext<SchoolContext>(options =>
+//            options.UseSqlServer(builder.Configuration.GetConnectionString("SchoolContext")));
+
+// prilagodi RequireConfirmedAccount = false
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<SchoolContext>();
+
+// dodaj app.MapRazorPages(); za app.useAuthentication();
+app.MapRazorPages();
+```
+
+nato dodaj `<partial name="_LoginPartial" />` v `/Views/Shared/_Layout.cshtml` na konec navbara
+
+Potem lahko dodajaš najprej dependency `using Microsoft.AspNetCore.Authorization;`, ter potem `[Authorize]` za namespace in pred definicijo class-a v katerikoli controller rabiš,  
