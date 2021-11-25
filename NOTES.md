@@ -45,3 +45,28 @@ Then you need to fix Views/Shared/_Layout.cshtml add lines for each controller l
 
 ### Creating a custom layout
 Just mess around with the Views/Shared/_Layout.cshtml.css file until it looks nice
+
+
+### AUTH
+##### malo cancer ngl
+```
+dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore --version 6.0.0-rc.2.21480.10
+dotnet add package Microsoft.AspNetCore.Identity.UI --version 6.0.0-rc.2.21480.10
+dotnet add package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore --version 6.0.0-rc.2.21480.10
+```
+create a file 
+and add the following to it
+```
+using Microsoft.AspNetCore.Identity;
+
+namespace E_Veterinar.Models
+{
+    public class ApplicationUser : IdentityUser
+    {
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? City { get; set; }
+
+    }
+}
+```

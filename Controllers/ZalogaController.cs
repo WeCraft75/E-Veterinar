@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using E_Veterinar.Data;
 using E_Veterinar.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace E_Veterinar.Controllers
 {
+    [Authorize]
     public class ZalogaController : Controller
     {
         private readonly eveterinarContext _context;
@@ -23,13 +25,13 @@ namespace E_Veterinar.Controllers
         public async Task<IActionResult> Index(string searchString)
         {
             ViewData["CurrentFilter"] = searchString;
-            
+
             var eveterinarContext = _context.Zalogas.Include(z => z.IdIzdelekNavigation).Include(z => z.IdVeterinarNavigation).AsQueryable();
 
             if (!String.IsNullOrEmpty(searchString))
-                {
-                    eveterinarContext = eveterinarContext.Where(z => z.IdIzdelekNavigation.Ime.Contains(searchString));
-                }
+            {
+                eveterinarContext = eveterinarContext.Where(z => z.IdIzdelekNavigation.Ime.Contains(searchString));
+            }
 
             return View(await eveterinarContext.ToListAsync());
         }
@@ -120,7 +122,7 @@ namespace E_Veterinar.Controllers
 
             ModelState.Remove("IdIzdelekNavigation");
             ModelState.Remove("IdVeterinarNavigation");
-        
+
             if (ModelState.IsValid)
             {
                 try
