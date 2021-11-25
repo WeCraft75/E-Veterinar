@@ -62,7 +62,7 @@ namespace E_Veterinar.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(izdelek);
+            return RedirectToAction("Index", "Zaloga");
         }
 
         // GET: Izdelek/Edit/5

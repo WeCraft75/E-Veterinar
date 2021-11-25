@@ -4,8 +4,6 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
 <h4>Izdelek</h4>
 <hr />
 <div class="row">
@@ -13,22 +11,22 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="IdIzdelek" class="control-label"></label>
+                Šifra
                 <input asp-for="IdIzdelek" class="form-control" />
                 <span asp-validation-for="IdIzdelek" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Ime" class="control-label"></label>
+                Naziv
                 <input asp-for="Ime" class="form-control" />
                 <span asp-validation-for="Ime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Cena" class="control-label"></label>
+                Cena za kos
                 <input asp-for="Cena" class="form-control" />
                 <span asp-validation-for="Cena" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Opis" class="control-label"></label>
+                Podrobnosti
                 <input asp-for="Opis" class="form-control" />
                 <span asp-validation-for="Opis" class="text-danger"></span>
             </div>
