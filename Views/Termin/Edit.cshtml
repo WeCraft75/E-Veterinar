@@ -11,8 +11,8 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdVeterinar" />
-            <input type="hidden" asp-for="DatumZacetka" />
-            <input type="hidden" asp-for="DatumKonca" />
+            <input type="hidden" asp-for="DatumZacetka" value="@this.Model.DatumZacetka.ToString("dd/MM/yyyy HH:mm:ss")" />
+            <input type="hidden" asp-for="DatumKonca" value="@this.Model.DatumKonca.ToString("dd/MM/yyyy HH:mm:ss")" />
             <input type="hidden" class="form-check-input" asp-for="JeZaseden" />
             <input type="hidden" class="form-check-input" asp-for="JePotrjen" />
             @* <select type="hidden" asp-for="IdStranka" class="form-control" asp-items="ViewBag.IdStranka"></select> *@
