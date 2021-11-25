@@ -6,7 +6,18 @@ to use different parts this file,
 copy paste the * and / to the end of the topside comment and press run
 */
 
-/* delete all rows from databases */
+/* INSERT ROLES INTO DATABASE 
+INSERT INTO AspNetRoles
+    (Id, Name)
+VALUES
+    (1, 'Administrator'),
+    (2, 'Veterinar'),
+    (3, 'User')
+-- add more rows here
+GO
+*/
+
+/* delete all rows from databases 
 delete from storitev
 DELETE FROM evidenca
 DELETE FROM termin
@@ -17,7 +28,7 @@ DELETE FROM stranka
 DELETE FROM narocilo
 DELETE FROM posta
 GO
-
+*/
 
 /* Get a list of tables and views in the current database
 SELECT table_catalog [database], table_schema [schema], table_name name, table_type type
