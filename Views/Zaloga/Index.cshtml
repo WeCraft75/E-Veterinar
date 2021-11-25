@@ -7,7 +7,8 @@
 <h1>Pregled zaloge</h1>
 <hr>
 <p>
-    <a asp-action="Create" class="btn btn-primary">Dodaj v zalogo</a>
+    <a asp-action="Create" class="btn btn-primary">Nov vnos v zalogo</a>
+    @Html.ActionLink("Dodaj nov izdelek", "Create", "Izdelek", null, new { @class = "btn btn-primary" })
 </p>
 
 <form asp-action="Index" method="get">
@@ -27,6 +28,9 @@
                 Količina
             </th>
             <th>
+                Cena za kos
+            </th>
+            <th>
                 Izdelek
             </th>
             <th>
@@ -42,7 +46,10 @@
                 @Html.DisplayFor(modelItem => item.Kolicina)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdIzdelekNavigation.Ime)
+                @Html.DisplayFor(modelItem => item.IdIzdelekNavigation.Cena) €
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdIzdelekNavigation.Ime) 
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IdVeterinarNavigation.Ime)
