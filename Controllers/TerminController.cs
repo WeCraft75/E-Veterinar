@@ -49,8 +49,8 @@ namespace E_Veterinar.Controllers
         // GET: Termin/Create
         public IActionResult Create()
         {
-            ViewData["IdStranka"] = new SelectList(_context.Strankas, "IdStranka", "IdStranka");
-            ViewData["IdVeterinar"] = new SelectList(_context.Veterinars, "IdVeterinar", "IdVeterinar");
+            ViewData["IdStranka"] = new SelectList(_context.Strankas, "IdStranka", "FullName");
+            ViewData["IdVeterinar"] = new SelectList(_context.Veterinars, "IdVeterinar", "FullName");
             return View();
         }
 
@@ -61,32 +61,37 @@ namespace E_Veterinar.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdVeterinar,DatumZacetka,DatumKonca,IdStranka,JeZaseden,JePotrjen")] Termin termin)
         {
+            ModelState.Remove("IdStrankaNavigation");
+            ModelState.Remove("IdVeterinarNavigation");
+
             if (ModelState.IsValid)
             {
                 _context.Add(termin);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdStranka"] = new SelectList(_context.Strankas, "IdStranka", "IdStranka", termin.IdStranka);
-            ViewData["IdVeterinar"] = new SelectList(_context.Veterinars, "IdVeterinar", "IdVeterinar", termin.IdVeterinar);
+            ViewData["IdStranka"] = new SelectList(_context.Strankas, "IdStranka", "FullName", termin.IdStranka);
+            ViewData["IdVeterinar"] = new SelectList(_context.Veterinars, "IdVeterinar", "FullName", termin.IdVeterinar);
             return View(termin);
         }
 
         // GET: Termin/Edit/5
-        public async Task<IActionResult> Edit(decimal? id)
+        public async Task<IActionResult> Edit(decimal IdVeterinar, DateTime DatumZacetka, DateTime DatumKonca)
         {
-            if (id == null)
+            if (IdVeterinar == null || DatumZacetka == null || DatumKonca == null)
             {
                 return NotFound();
             }
 
-            var termin = await _context.Termins.FindAsync(id);
+            var termin = await _context.Termins.FindAsync(IdVeterinar, DatumZacetka, DatumKonca);
             if (termin == null)
             {
                 return NotFound();
             }
-            ViewData["IdStranka"] = new SelectList(_context.Strankas, "IdStranka", "IdStranka", termin.IdStranka);
+            ViewData["IdStranka"] = new SelectList(_context.Strankas, "IdStranka", "FullName", termin.IdStranka);
             ViewData["IdVeterinar"] = new SelectList(_context.Veterinars, "IdVeterinar", "IdVeterinar", termin.IdVeterinar);
+            ViewData["DatumZacetka"] = new SelectList(_context.Termins, "DatumZacetka", "DatumZacetka", termin.DatumZacetka);
+            ViewData["DatumKonca"] = new SelectList(_context.Termins, "DatumKonca", "DatumKonca", termin.DatumKonca);
             return View(termin);
         }
 
@@ -95,23 +100,36 @@ namespace E_Veterinar.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(decimal id, [Bind("IdVeterinar,DatumZacetka,DatumKonca,IdStranka,JeZaseden,JePotrjen")] Termin termin)
+        public async Task<IActionResult> Edit(DateTime DatumZacetka, DateTime DatumKonca, [Bind("IdVeterinar,DatumZacetka,DatumKonca,IdStranka,JeZaseden,JePotrjen")] Termin termin)
         {
-            if (id != termin.IdVeterinar)
+            if (DatumZacetka != termin.DatumZacetka && DatumKonca != termin.DatumKonca)
             {
                 return NotFound();
             }
 
+            ModelState.Remove("IdStrankaNavigation");
+            ModelState.Remove("IdVeterinarNavigation");
+
+            var errors = ModelState
+                .Where(x => x.Value.Errors.Count > 0)
+                .Select(x => new { x.Key, x.Value.Errors })
+                .ToArray();
+            Console.WriteLine(DatumZacetka);
+            Console.WriteLine(DatumZacetka);
+           
             if (ModelState.IsValid)
             {
                 try
                 {
+                    termin.JePotrjen = true;
+                    termin.IdStrankaNavigation = _context.Strankas.Find(termin.IdStranka);
+                    termin.IdVeterinarNavigation = _context.Veterinars.Find(termin.IdVeterinar);
                     _context.Update(termin);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TerminExists(termin.IdVeterinar))
+                    if (!TerminExists(termin.DatumZacetka, termin.DatumKonca))
                     {
                         return NotFound();
                     }
@@ -122,15 +140,15 @@ namespace E_Veterinar.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdStranka"] = new SelectList(_context.Strankas, "IdStranka", "IdStranka", termin.IdStranka);
-            ViewData["IdVeterinar"] = new SelectList(_context.Veterinars, "IdVeterinar", "IdVeterinar", termin.IdVeterinar);
+            ViewData["IdStranka"] = new SelectList(_context.Strankas, "IdStranka", "FullName", termin.IdStranka);
+            ViewData["IdVeterinar"] = new SelectList(_context.Veterinars, "IdVeterinar", "FullName", termin.IdVeterinar);
             return View(termin);
         }
 
         // GET: Termin/Delete/5
-        public async Task<IActionResult> Delete(decimal? id)
+        public async Task<IActionResult> Delete(decimal IdVeterinar, DateTime DatumZacetka, DateTime DatumKonca)
         {
-            if (id == null)
+            if (DatumZacetka == null || DatumKonca == null)
             {
                 return NotFound();
             }
@@ -138,7 +156,7 @@ namespace E_Veterinar.Controllers
             var termin = await _context.Termins
                 .Include(t => t.IdStrankaNavigation)
                 .Include(t => t.IdVeterinarNavigation)
-                .FirstOrDefaultAsync(m => m.IdVeterinar == id);
+                .FirstOrDefaultAsync(m => m.IdVeterinar == IdVeterinar && m.DatumZacetka == DatumZacetka && m.DatumKonca == DatumKonca);
             if (termin == null)
             {
                 return NotFound();
@@ -150,17 +168,21 @@ namespace E_Veterinar.Controllers
         // POST: Termin/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(decimal id)
+        public async Task<IActionResult> DeleteConfirmed(decimal IdVeterinar, DateTime DatumZacetka, DateTime DatumKonca)
         {
-            var termin = await _context.Termins.FindAsync(id);
+            Console.WriteLine(IdVeterinar);
+            Console.WriteLine(DatumZacetka);
+            Console.WriteLine(DatumKonca);
+
+            var termin = await _context.Termins.FindAsync(IdVeterinar, DatumZacetka, DatumKonca);
             _context.Termins.Remove(termin);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TerminExists(decimal id)
+        private bool TerminExists(DateTime DatumZacetka, DateTime DatumKonca)
         {
-            return _context.Termins.Any(e => e.IdVeterinar == id);
+            return _context.Termins.Any(e => e.DatumZacetka == DatumZacetka && e.DatumKonca == DatumKonca);
         }
     }
 }

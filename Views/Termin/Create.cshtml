@@ -4,50 +4,35 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Termin</h4>
+<h4>Nov termin</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="IdVeterinar" class="control-label"></label>
+                Veterinar
                 <select asp-for="IdVeterinar" class ="form-control" asp-items="ViewBag.IdVeterinar"></select>
             </div>
             <div class="form-group">
-                <label asp-for="DatumZacetka" class="control-label"></label>
+                Datum in čas začetka
                 <input asp-for="DatumZacetka" class="form-control" />
                 <span asp-validation-for="DatumZacetka" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DatumKonca" class="control-label"></label>
+                Datum in čas konca
                 <input asp-for="DatumKonca" class="form-control" />
                 <span asp-validation-for="DatumKonca" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdStranka" class="control-label"></label>
-                <select asp-for="IdStranka" class ="form-control" asp-items="ViewBag.IdStranka"></select>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="JeZaseden" /> @Html.DisplayNameFor(model => model.JeZaseden)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="JePotrjen" /> @Html.DisplayNameFor(model => model.JePotrjen)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Ustvari" class="btn btn-primary" />
+                <a class="btn btn-secondary" asp-action="Index">Nazaj</a>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    
 </div>
 
