@@ -20,9 +20,17 @@ namespace E_Veterinar.Controllers
         }
 
         // GET: Zaloga
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var eveterinarContext = _context.Zalogas.Include(z => z.IdIzdelekNavigation).Include(z => z.IdVeterinarNavigation);
+            ViewData["CurrentFilter"] = searchString;
+            
+            var eveterinarContext = _context.Zalogas.Include(z => z.IdIzdelekNavigation).Include(z => z.IdVeterinarNavigation).AsQueryable();
+
+            if (!String.IsNullOrEmpty(searchString))
+                {
+                    eveterinarContext = eveterinarContext.Where(z => z.IdIzdelekNavigation.Ime.Contains(searchString));
+                }
+
             return View(await eveterinarContext.ToListAsync());
         }
 
