@@ -104,8 +104,7 @@ namespace E_Veterinar.Data
 
             var UserRoles = new IdentityUserRole<string>[]
             {
-                new IdentityUserRole<string>{RoleId = rolez[0].Id, UserId=user.Id},
-                new IdentityUserRole<string>{RoleId = rolez[1].Id, UserId=user.Id},
+                new IdentityUserRole<string>{RoleId = rolez[0].Id, UserId=user.Id}
             };
             context.UserRoles.AddRange(UserRoles);
             context.SaveChanges();
