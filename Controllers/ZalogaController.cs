@@ -71,10 +71,6 @@ namespace E_Veterinar.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdIzdelek,IdVeterinar,Kolicina")] Zaloga zaloga)
         {
-            Console.WriteLine(zaloga.IdIzdelek);
-            Console.WriteLine(zaloga.IdVeterinar);
-            Console.WriteLine(zaloga.Kolicina);
-
             ModelState.Remove("IdIzdelekNavigation");
             ModelState.Remove("IdVeterinarNavigation");
             if (ModelState.IsValid)

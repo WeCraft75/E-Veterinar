@@ -4,9 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Termin</h4>
+<h4>Ali želite potrditi ta termin?</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,29 +13,14 @@
             <input type="hidden" asp-for="IdVeterinar" />
             <input type="hidden" asp-for="DatumZacetka" />
             <input type="hidden" asp-for="DatumKonca" />
+            <input type="hidden" class="form-check-input" asp-for="JeZaseden" />
+            <input type="hidden" class="form-check-input" asp-for="JePotrjen" />
+            @* <select type="hidden" asp-for="IdStranka" class="form-control" asp-items="ViewBag.IdStranka"></select> *@
             <div class="form-group">
-                <label asp-for="IdStranka" class="control-label"></label>
-                <select asp-for="IdStranka" class="form-control" asp-items="ViewBag.IdStranka"></select>
-                <span asp-validation-for="IdStranka" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="JeZaseden" /> @Html.DisplayNameFor(model => model.JeZaseden)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="JePotrjen" /> @Html.DisplayNameFor(model => model.JePotrjen)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Potrdi" class="btn btn-primary" />
+                <a class="btn btn-secondary" asp-action="Index">Nazaj</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 

@@ -4,25 +4,26 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
+<h1>Prihodnji termini</h1>
+<hr>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-primary" asp-action="Create">Razpiši nov prost termin</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.JeZaseden)
+                Začetek
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.JePotrjen)
+                Konec
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdStrankaNavigation)
+                Zaseden
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdVeterinarNavigation)
+                Potrjen
             </th>
             <th></th>
         </tr>
@@ -31,21 +32,20 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.DatumZacetka)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumKonca)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.JeZaseden)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.JePotrjen)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdStrankaNavigation.IdStranka)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdVeterinarNavigation.IdVeterinar)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Potrdi", "Edit", new { IdVeterinar=item.IdVeterinar, DatumZacetka=item.DatumZacetka, DatumKonca=item.DatumKonca }, new { @class = "btn btn-outline-secondary btn-sm" })
+                @Html.ActionLink("Izbriši", "Delete", new { IdVeterinar=item.IdVeterinar, DatumZacetka=item.DatumZacetka, DatumKonca=item.DatumKonca }, new { @class = "btn btn-outline-danger btn-sm" })
             </td>
         </tr>
 }
