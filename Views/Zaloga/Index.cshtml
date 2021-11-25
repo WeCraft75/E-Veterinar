@@ -27,6 +27,9 @@
                 Količina
             </th>
             <th>
+                Cena za kos
+            </th>
+            <th>
                 Izdelek
             </th>
             <th>
@@ -42,7 +45,10 @@
                 @Html.DisplayFor(modelItem => item.Kolicina)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdIzdelekNavigation.Ime)
+                @Html.DisplayFor(modelItem => item.IdIzdelekNavigation.Cena) €
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdIzdelekNavigation.Ime) 
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IdVeterinarNavigation.Ime)

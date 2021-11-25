@@ -22,7 +22,7 @@ namespace E_Veterinar.Controllers
         // GET: Izdelek
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Izdeleks.ToListAsync());
+            return RedirectToAction("Index", "Zaloga");
         }
 
         // GET: Izdelek/Details/5
@@ -113,7 +113,7 @@ namespace E_Veterinar.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(izdelek);
+            return RedirectToAction("Index", "Zaloga");
         }
 
         // GET: Izdelek/Delete/5
