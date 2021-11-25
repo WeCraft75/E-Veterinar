@@ -12,6 +12,12 @@ namespace E_Veterinar.Data
         {
             context.Database.EnsureCreated();
 
+            if (!context.Roles.Any())
+            {
+
+            }
+
+
             if (context.Posta.Any())
             {
                 return;

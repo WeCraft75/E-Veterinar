@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace E_Veterinar.Migrations
 {
-    public partial class AppUser : Migration
+    public partial class Roles : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -138,8 +138,8 @@ namespace E_Veterinar.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -183,8 +183,8 @@ namespace E_Veterinar.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -207,12 +207,18 @@ namespace E_Veterinar.Migrations
                     IME = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
                     PRIIMEK = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
                     NASLOV = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
-                    KRAJ = table.Column<string>(type: "varchar(150)", unicode: false, maxLength: 150, nullable: false)
+                    KRAJ = table.Column<string>(type: "varchar(150)", unicode: false, maxLength: 150, nullable: false),
+                    AspNetIDId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_STRANKA", x => x.ID_STRANKA)
                         .Annotation("SqlServer:Clustered", false);
+                    table.ForeignKey(
+                        name: "FK_STRANKA_AspNetUsers_AspNetIDId",
+                        column: x => x.AspNetIDId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_STRANKA_JE_NA_POSTA",
                         column: x => x.STEVILKA,
@@ -225,6 +231,7 @@ namespace E_Veterinar.Migrations
                 columns: table => new
                 {
                     ID_VETERINAR = table.Column<decimal>(type: "numeric(18,0)", nullable: false),
+                    AspNetIDId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     STEVILKA = table.Column<decimal>(type: "numeric(18,0)", nullable: false),
                     IME = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
                     PRIIMEK = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
@@ -240,6 +247,11 @@ namespace E_Veterinar.Migrations
                         column: x => x.STEVILKA,
                         principalTable: "POSTA",
                         principalColumn: "STEVILKA");
+                    table.ForeignKey(
+                        name: "FK_VETERINAR_AspNetUsers_AspNetIDId",
+                        column: x => x.AspNetIDId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -449,6 +461,11 @@ namespace E_Veterinar.Migrations
                 column: "ID_STRANKA");
 
             migrationBuilder.CreateIndex(
+                name: "IX_STRANKA_AspNetIDId",
+                table: "STRANKA",
+                column: "AspNetIDId");
+
+            migrationBuilder.CreateIndex(
                 name: "JE_NA_FK",
                 table: "STRANKA",
                 column: "STEVILKA");
@@ -467,6 +484,11 @@ namespace E_Veterinar.Migrations
                 name: "IMA_VETERINO_NA_FK",
                 table: "VETERINAR",
                 column: "STEVILKA");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VETERINAR_AspNetIDId",
+                table: "VETERINAR",
+                column: "AspNetIDId");
 
             migrationBuilder.CreateIndex(
                 name: "ZAHTEVA_FK",
@@ -516,9 +538,6 @@ namespace E_Veterinar.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "EVIDENCA");
 
             migrationBuilder.DropTable(
@@ -544,6 +563,9 @@ namespace E_Veterinar.Migrations
 
             migrationBuilder.DropTable(
                 name: "POSTA");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

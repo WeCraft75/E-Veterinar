@@ -7,15 +7,18 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using E_Veterinar.Data;
 using E_Veterinar.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace E_Veterinar.Controllers
 {
     public class VeterinarController : Controller
     {
         private readonly eveterinarContext _context;
+        private readonly UserManager<ApplicationUser> _usermanager;
 
-        public VeterinarController(eveterinarContext context)
+        public VeterinarController(eveterinarContext context, UserManager<ApplicationUser> usermanager)
         {
+            _usermanager = usermanager;
             _context = context;
         }
 
@@ -59,8 +62,10 @@ namespace E_Veterinar.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdVeterinar,Stevilka,Ime,Priimek,Kraj,NaDom")] Veterinar veterinar)
         {
+            var currentUser = await _usermanager.GetUserAsync(User);
             if (ModelState.IsValid)
             {
+                veterinar.AspNetID = currentUser;
                 _context.Add(veterinar);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

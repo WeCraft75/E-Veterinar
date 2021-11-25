@@ -17,7 +17,7 @@ namespace E_Veterinar.Models
         public string Priimek { get; set; } = null!;
         public string Naslov { get; set; } = null!;
         public string Kraj { get; set; } = null!;
-
+        public ApplicationUser? AspNetID { get; set; }
         public virtual Postum StevilkaNavigation { get; set; } = null!;
         public virtual ICollection<Narocilo> Narocilos { get; set; }
         public virtual ICollection<Termin> Termins { get; set; }

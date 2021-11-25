@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Veterinar.Migrations
 {
     [DbContext(typeof(eveterinarContext))]
-    [Migration("20211125122816_AppUser")]
-    partial class AppUser
+    [Migration("20211125151004_Roles")]
+    partial class Roles
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -237,6 +237,9 @@ namespace E_Veterinar.Migrations
                         .HasColumnType("numeric(18,0)")
                         .HasColumnName("ID_STRANKA");
 
+                    b.Property<string>("AspNetIDId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Ime")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -272,6 +275,8 @@ namespace E_Veterinar.Migrations
                     b.HasKey("IdStranka");
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("IdStranka"), false);
+
+                    b.HasIndex("AspNetIDId");
 
                     b.HasIndex(new[] { "Stevilka" }, "JE_NA_FK");
 
@@ -321,6 +326,9 @@ namespace E_Veterinar.Migrations
                         .HasColumnType("numeric(18,0)")
                         .HasColumnName("ID_VETERINAR");
 
+                    b.Property<string>("AspNetIDId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Ime")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -353,6 +361,8 @@ namespace E_Veterinar.Migrations
                     b.HasKey("IdVeterinar");
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("IdVeterinar"), false);
+
+                    b.HasIndex("AspNetIDId");
 
                     b.HasIndex(new[] { "Stevilka" }, "IMA_VETERINO_NA_FK");
 
@@ -481,10 +491,12 @@ namespace E_Veterinar.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -521,10 +533,12 @@ namespace E_Veterinar.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -587,11 +601,17 @@ namespace E_Veterinar.Migrations
 
             modelBuilder.Entity("E_Veterinar.Models.Stranka", b =>
                 {
+                    b.HasOne("E_Veterinar.Models.ApplicationUser", "AspNetID")
+                        .WithMany()
+                        .HasForeignKey("AspNetIDId");
+
                     b.HasOne("E_Veterinar.Models.Postum", "StevilkaNavigation")
                         .WithMany("Strankas")
                         .HasForeignKey("Stevilka")
                         .IsRequired()
                         .HasConstraintName("FK_STRANKA_JE_NA_POSTA");
+
+                    b.Navigation("AspNetID");
 
                     b.Navigation("StevilkaNavigation");
                 });
@@ -617,11 +637,17 @@ namespace E_Veterinar.Migrations
 
             modelBuilder.Entity("E_Veterinar.Models.Veterinar", b =>
                 {
+                    b.HasOne("E_Veterinar.Models.ApplicationUser", "AspNetID")
+                        .WithMany()
+                        .HasForeignKey("AspNetIDId");
+
                     b.HasOne("E_Veterinar.Models.Postum", "StevilkaNavigation")
                         .WithMany("Veterinars")
                         .HasForeignKey("Stevilka")
                         .IsRequired()
                         .HasConstraintName("FK_VETERINA_IMA_VETER_POSTA");
+
+                    b.Navigation("AspNetID");
 
                     b.Navigation("StevilkaNavigation");
                 });
