@@ -13,6 +13,7 @@ namespace E_Veterinar.Models
         }
 
         public decimal IdVeterinar { get; set; }
+        public ApplicationUser? AspNetID { get; set; }
         public decimal Stevilka { get; set; }
         public string Ime { get; set; } = null!;
         public string Priimek { get; set; } = null!;

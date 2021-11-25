@@ -7,15 +7,18 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using E_Veterinar.Data;
 using E_Veterinar.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace E_Veterinar.Controllers
 {
     public class StrankaController : Controller
     {
         private readonly eveterinarContext _context;
+        private readonly UserManager<ApplicationUser> _usermanager;
 
-        public StrankaController(eveterinarContext context)
+        public StrankaController(eveterinarContext context, UserManager<ApplicationUser> usermanager)
         {
+            _usermanager = usermanager;
             _context = context;
         }
 
@@ -59,8 +62,10 @@ namespace E_Veterinar.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdStranka,Stevilka,Ime,Priimek,Naslov,Kraj")] Stranka stranka)
         {
+            var currentUser = await _usermanager.GetUserAsync(User);
             if (ModelState.IsValid)
             {
+                stranka.AspNetID = currentUser;
                 _context.Add(stranka);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
