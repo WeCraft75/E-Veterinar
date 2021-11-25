@@ -3,10 +3,11 @@ using E_Veterinar.Models;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace E_Veterinar.Data
 {
-    public partial class eveterinarContext : DbContext
+    public partial class eveterinarContext : IdentityDbContext<ApplicationUser>
     {
         public eveterinarContext()
         {
@@ -385,8 +386,8 @@ namespace E_Veterinar.Data
             });
 
             OnModelCreatingPartial(modelBuilder);
+            base.OnModelCreating(modelBuilder);
         }
-
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
