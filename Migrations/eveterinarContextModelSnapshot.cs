@@ -295,7 +295,7 @@ namespace E_Veterinar.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("DATUM_KONCA");
 
-                    b.Property<decimal>("IdStranka")
+                    b.Property<decimal?>("IdStranka")
                         .HasColumnType("numeric(18,0)")
                         .HasColumnName("ID_STRANKA");
 
@@ -619,7 +619,6 @@ namespace E_Veterinar.Migrations
                     b.HasOne("E_Veterinar.Models.Stranka", "IdStrankaNavigation")
                         .WithMany("Termins")
                         .HasForeignKey("IdStranka")
-                        .IsRequired()
                         .HasConstraintName("FK_TERMIN_JE_PREVZE_STRANKA");
 
                     b.HasOne("E_Veterinar.Models.Veterinar", "IdVeterinarNavigation")

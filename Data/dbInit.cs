@@ -63,8 +63,7 @@ namespace E_Veterinar.Data
             context.SaveChanges();
 
             var termini = new Termin[]{
-                // new Termin{IdStranka=1,IdStrankaNavigation=stranke[0],IdVeterinar=1, IdVeterinarNavigation=veterinarji[0],DatumZacetka=DateTime.Parse("29.11.2021 8:00:00"),DatumKonca=DateTime.Parse("29.11.2021 8:30:00"), JePotrjen=false,JeZaseden=false}
-                new Termin{IdVeterinar=1,IdVeterinarNavigation=veterinarji[0],DatumZacetka=DateTime.Parse("29.11.2021 8:00:00"),DatumKonca=DateTime.Parse("29.11.2021 8:30:00"),JePotrjen=false,JeZaseden=false}
+                new Termin{DatumZacetka=DateTime.Parse("29.11.2021 8:00:00"),DatumKonca=DateTime.Parse("29.11.2021 8:30:00"),JePotrjen=false,JeZaseden=false}
             };
             context.Termins.AddRange(termini);
             context.SaveChanges();

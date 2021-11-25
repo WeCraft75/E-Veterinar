@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Veterinar.Migrations
 {
     [DbContext(typeof(eveterinarContext))]
-    [Migration("20211125154536_Backup")]
-    partial class Backup
+    [Migration("20211125231106_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -297,7 +297,7 @@ namespace E_Veterinar.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("DATUM_KONCA");
 
-                    b.Property<decimal>("IdStranka")
+                    b.Property<decimal?>("IdStranka")
                         .HasColumnType("numeric(18,0)")
                         .HasColumnName("ID_STRANKA");
 
@@ -621,7 +621,6 @@ namespace E_Veterinar.Migrations
                     b.HasOne("E_Veterinar.Models.Stranka", "IdStrankaNavigation")
                         .WithMany("Termins")
                         .HasForeignKey("IdStranka")
-                        .IsRequired()
                         .HasConstraintName("FK_TERMIN_JE_PREVZE_STRANKA");
 
                     b.HasOne("E_Veterinar.Models.Veterinar", "IdVeterinarNavigation")

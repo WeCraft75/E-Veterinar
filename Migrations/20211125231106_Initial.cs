@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace E_Veterinar.Migrations
 {
-    public partial class Backup : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -281,7 +281,7 @@ namespace E_Veterinar.Migrations
                     ID_VETERINAR = table.Column<decimal>(type: "numeric(18,0)", nullable: false),
                     DATUM_ZACETKA = table.Column<DateTime>(type: "datetime", nullable: false),
                     DATUM_KONCA = table.Column<DateTime>(type: "datetime", nullable: false),
-                    ID_STRANKA = table.Column<decimal>(type: "numeric(18,0)", nullable: false),
+                    ID_STRANKA = table.Column<decimal>(type: "numeric(18,0)", nullable: true),
                     JE_ZASEDEN = table.Column<bool>(type: "bit", nullable: false),
                     JE_POTRJEN = table.Column<bool>(type: "bit", nullable: false)
                 },
