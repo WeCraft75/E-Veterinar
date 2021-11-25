@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace E_Veterinar.Migrations
 {
-    public partial class Roles : Migration
+    public partial class Backup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

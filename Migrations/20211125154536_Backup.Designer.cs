@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Veterinar.Migrations
 {
     [DbContext(typeof(eveterinarContext))]
-    [Migration("20211125151004_Roles")]
-    partial class Roles
+    [Migration("20211125154536_Backup")]
+    partial class Backup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
