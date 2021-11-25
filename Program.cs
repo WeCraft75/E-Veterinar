@@ -1,7 +1,14 @@
 using E_Veterinar.Data;
 using Microsoft.EntityFrameworkCore;
+using E_Veterinar.Models;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("EVeterinarContext");
+
+builder.Services.AddDbContext<eveterinarContext>(options =>
+    options.UseSqlServer(connectionString)); builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+     .AddEntityFrameworkStores<eveterinarContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -24,7 +31,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
+app.MapRazorPages();
 app.UseAuthorization();
 
 app.MapControllerRoute(
