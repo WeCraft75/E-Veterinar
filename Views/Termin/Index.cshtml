@@ -4,6 +4,9 @@
     ViewData["Title"] = "Index";
 }
 
+<!----------------------VETERINAR--------------------->
+@if ( User.IsInRole("Administrator") || User.IsInRole("Veterinar") ) 
+{ 
 <h1>Prihodnji termini</h1>
 <hr>
 <p>
@@ -51,3 +54,45 @@
 }
     </tbody>
 </table>
+} else
+{
+<!----------------------STRANKA--------------------->
+<h1>Razpoložljivi termini</h1>
+<hr>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Začetek
+            </th>
+            <th>
+                Konec
+            </th>
+            <th>
+                Zaseden
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumZacetka)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumKonca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JeZaseden)
+            </td>
+            <td>
+                @Html.ActionLink("Potrdi", "Edit", new { IdVeterinar=item.IdVeterinar, DatumZacetka=item.DatumZacetka, DatumKonca=item.DatumKonca }, new { @class = "btn btn-outline-secondary btn-sm" })
+                @Html.ActionLink("Izbriši", "Delete", new { IdVeterinar=item.IdVeterinar, DatumZacetka=item.DatumZacetka, DatumKonca=item.DatumKonca }, new { @class = "btn btn-outline-danger btn-sm" })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+}
