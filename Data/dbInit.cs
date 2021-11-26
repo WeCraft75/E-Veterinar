@@ -63,7 +63,7 @@ namespace E_Veterinar.Data
             context.SaveChanges();
 
             var termini = new Termin[]{
-                new Termin{DatumZacetka=DateTime.Parse("29.11.2021 8:00:00"),DatumKonca=DateTime.Parse("29.11.2021 8:30:00"),JePotrjen=false,JeZaseden=false}
+                new Termin{IdVeterinar=1,DatumZacetka=DateTime.Parse("29.11.2021 8:00:00"),DatumKonca=DateTime.Parse("29.11.2021 8:30:00"),JePotrjen=false,JeZaseden=false}
             };
             context.Termins.AddRange(termini);
             context.SaveChanges();
@@ -76,7 +76,7 @@ namespace E_Veterinar.Data
             context.Roles.AddRange(rolez);
             context.SaveChanges();
 
-
+            // ADMIN
             var user = new ApplicationUser
             {
                 FirstName = "Admin",
@@ -105,6 +105,39 @@ namespace E_Veterinar.Data
             var UserRoles = new IdentityUserRole<string>[]
             {
                 new IdentityUserRole<string>{RoleId = rolez[0].Id, UserId=user.Id}
+            };
+            context.UserRoles.AddRange(UserRoles);
+            context.SaveChanges();
+
+            // VETERINAR
+            var vet1 = new ApplicationUser
+            {
+                FirstName = "Mark",
+                LastName = "Žgavec",
+                City = "Vipava",
+                Email = "markzgavec@eveterinar.si",
+                NormalizedEmail = "MARKZGAVEC@EVETERINAR.SI",
+                UserName = "markzgavec@eveterinar.si",
+                NormalizedUserName = "markzgavec@eveterinar.si",
+                PhoneNumber = "068613560",
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString("D")
+            };
+
+
+            if (!context.Users.Any(u => u.UserName == vet1.UserName))
+            {
+                var password = new PasswordHasher<ApplicationUser>();
+                var hashed = password.HashPassword(vet1, "@Mark2021");
+                vet1.PasswordHash = hashed;
+                context.Users.Add(vet1);
+            }
+            context.SaveChanges();
+
+            UserRoles = new IdentityUserRole<string>[]
+            {
+                new IdentityUserRole<string>{RoleId = rolez[1].Id, UserId=vet1.Id}
             };
             context.UserRoles.AddRange(UserRoles);
             context.SaveChanges();

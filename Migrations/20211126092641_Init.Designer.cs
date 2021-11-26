@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Veterinar.Migrations
 {
     [DbContext(typeof(eveterinarContext))]
-    [Migration("20211125231106_Initial")]
-    partial class Initial
+    [Migration("20211126092641_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -309,9 +309,14 @@ namespace E_Veterinar.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("JE_ZASEDEN");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("IdVeterinar", "DatumZacetka", "DatumKonca");
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("IdVeterinar", "DatumZacetka", "DatumKonca"), false);
+
+                    b.HasIndex("UserId");
 
                     b.HasIndex(new[] { "IdStranka" }, "JE_PREVZELA_FK");
 
@@ -629,9 +634,15 @@ namespace E_Veterinar.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_TERMIN_JE_RAZPIS_VETERINA");
 
+                    b.HasOne("E_Veterinar.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
                     b.Navigation("IdStrankaNavigation");
 
                     b.Navigation("IdVeterinarNavigation");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("E_Veterinar.Models.Veterinar", b =>

@@ -20,5 +20,7 @@ namespace E_Veterinar.Models
         public virtual Stranka? IdStrankaNavigation { get; set; }
         public virtual Veterinar IdVeterinarNavigation { get; set; }
         public virtual ICollection<Evidenca> Evidencas { get; set; }
+
+        public ApplicationUser? Owner { get; set; }
     }
 }
