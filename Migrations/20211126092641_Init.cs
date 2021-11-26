@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace E_Veterinar.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -283,12 +283,18 @@ namespace E_Veterinar.Migrations
                     DATUM_KONCA = table.Column<DateTime>(type: "datetime", nullable: false),
                     ID_STRANKA = table.Column<decimal>(type: "numeric(18,0)", nullable: true),
                     JE_ZASEDEN = table.Column<bool>(type: "bit", nullable: false),
-                    JE_POTRJEN = table.Column<bool>(type: "bit", nullable: false)
+                    JE_POTRJEN = table.Column<bool>(type: "bit", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TERMIN", x => new { x.ID_VETERINAR, x.DATUM_ZACETKA, x.DATUM_KONCA })
                         .Annotation("SqlServer:Clustered", false);
+                    table.ForeignKey(
+                        name: "FK_TERMIN_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_TERMIN_JE_PREVZE_STRANKA",
                         column: x => x.ID_STRANKA,
@@ -469,6 +475,11 @@ namespace E_Veterinar.Migrations
                 name: "JE_NA_FK",
                 table: "STRANKA",
                 column: "STEVILKA");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TERMIN_UserId",
+                table: "TERMIN",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "JE_PREVZELA_FK",

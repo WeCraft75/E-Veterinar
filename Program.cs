@@ -1,19 +1,21 @@
 using E_Veterinar.Data;
-using Microsoft.EntityFrameworkCore;
 using E_Veterinar.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
-var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("EVeterinarContext");
 
-builder.Services.AddDbContext<eveterinarContext>(options =>
-    options.UseSqlServer(connectionString)); builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
-     .AddEntityFrameworkStores<eveterinarContext>();
+var builder = WebApplication.CreateBuilder(args);
+
+// nastavi spremenljivko connectionString za .useSqlServer(connectionString)
+var connectionString = builder.Configuration.GetConnectionString("EVeterinarContext");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<eveterinarContext>();
 builder.Services.AddDbContext<eveterinarContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("EVeterinarContext")));
+    options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
@@ -32,8 +34,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseAuthentication();
-app.MapRazorPages();
+
 app.UseAuthorization();
+
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
@@ -43,19 +47,20 @@ app.Run();
 
 
 static void CreateDbIfNotExists(IHost host)
-{
-    using (var scope = host.Services.CreateScope())
-    {
-        var services = scope.ServiceProvider;
-        try
         {
-            var context = services.GetRequiredService<eveterinarContext>();
-            dbInit.Initialize(context);
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<eveterinarContext>();
+                    //context.Database.EnsureCreated();
+                    dbInit.Initialize(context);
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred creating the DB.");
+                }
+            }
         }
-        catch (Exception ex)
-        {
-            var logger = services.GetRequiredService<ILogger<Program>>();
-            logger.LogError(ex, "An error occurred creating the DB.");
-        }
-    }
-}
