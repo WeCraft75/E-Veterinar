@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using E_Veterinar.Data;
 using E_Veterinar.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace E_Veterinar.Controllers
 {
+    [Authorize(Roles = "Administrator, User")]
     public class NarociloController : Controller
     {
         private readonly eveterinarContext _context;

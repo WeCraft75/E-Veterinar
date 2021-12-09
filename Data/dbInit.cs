@@ -69,9 +69,9 @@ namespace E_Veterinar.Data
             context.SaveChanges();
 
             var rolez = new IdentityRole[]{
-                new IdentityRole{Id="1",Name="Administrator"},
-                new IdentityRole{Id="2",Name="Veterinar"},
-                new IdentityRole{Id="3",Name="User"}
+                new IdentityRole{Id="1",Name="Administrator",NormalizedName="ADMINISTRATOR"},
+                new IdentityRole{Id="2",Name="Veterinar",NormalizedName="VETERINAR"},
+                new IdentityRole{Id="3",Name="User",NormalizedName="USER"}
             };
             context.Roles.AddRange(rolez);
             context.SaveChanges();
@@ -138,6 +138,39 @@ namespace E_Veterinar.Data
             UserRoles = new IdentityUserRole<string>[]
             {
                 new IdentityUserRole<string>{RoleId = rolez[1].Id, UserId=vet1.Id}
+            };
+            context.UserRoles.AddRange(UserRoles);
+            context.SaveChanges();
+
+            // STRANKA
+            var stranka1 = new ApplicationUser
+            {
+                FirstName = "Janez",
+                LastName = "Kranjski",
+                City = "Kranj",
+                Email = "jkranjski@najdi.si",
+                NormalizedEmail = "JKRANJSKI@NAJDI.SI",
+                UserName = "jkranjski@najdi.si",
+                NormalizedUserName = "jkranjski@najdi.si",
+                PhoneNumber = "014798118",
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString("D")
+            };
+
+
+            if (!context.Users.Any(u => u.UserName == stranka1.UserName))
+            {
+                var password = new PasswordHasher<ApplicationUser>();
+                var hashed = password.HashPassword(stranka1, "jkranjski");
+                stranka1.PasswordHash = hashed;
+                context.Users.Add(stranka1);
+            }
+            context.SaveChanges();
+
+            UserRoles = new IdentityUserRole<string>[]
+            {
+                new IdentityUserRole<string>{RoleId = rolez[2].Id, UserId=stranka1.Id}
             };
             context.UserRoles.AddRange(UserRoles);
             context.SaveChanges();
