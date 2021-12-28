@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace E_Veterinar.Migrations
 {
-    public partial class Init : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -284,15 +284,15 @@ namespace E_Veterinar.Migrations
                     ID_STRANKA = table.Column<decimal>(type: "numeric(18,0)", nullable: true),
                     JE_ZASEDEN = table.Column<bool>(type: "bit", nullable: false),
                     JE_POTRJEN = table.Column<bool>(type: "bit", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TERMIN", x => new { x.ID_VETERINAR, x.DATUM_ZACETKA, x.DATUM_KONCA })
                         .Annotation("SqlServer:Clustered", false);
                     table.ForeignKey(
-                        name: "FK_TERMIN_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_TERMIN_AspNetUsers_OwnerId",
+                        column: x => x.OwnerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -477,9 +477,9 @@ namespace E_Veterinar.Migrations
                 column: "STEVILKA");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TERMIN_UserId",
+                name: "IX_TERMIN_OwnerId",
                 table: "TERMIN",
-                column: "UserId");
+                column: "OwnerId");
 
             migrationBuilder.CreateIndex(
                 name: "JE_PREVZELA_FK",

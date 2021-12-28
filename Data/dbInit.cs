@@ -69,9 +69,9 @@ namespace E_Veterinar.Data
             context.SaveChanges();
 
             var rolez = new IdentityRole[]{
-                new IdentityRole{Id="1",Name="Administrator"},
-                new IdentityRole{Id="2",Name="Veterinar"},
-                new IdentityRole{Id="3",Name="User"}
+                new IdentityRole{Id="1",Name="Administrator",NormalizedName="ADMINISTRATOR"},
+                new IdentityRole{Id="2",Name="Veterinar",NormalizedName="VETERINAR"},
+                new IdentityRole{Id="3",Name="User",NormalizedName="USER"}
             };
             context.Roles.AddRange(rolez);
             context.SaveChanges();

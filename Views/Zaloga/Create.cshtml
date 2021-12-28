@@ -14,16 +14,16 @@
                 <label class="control-label">Izdelek</label>
                 <select asp-for="IdIzdelek" class="form-control" asp-items="ViewBag.IdIzdelek"></select>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 10px">
                 <label class="control-label">Veterinar</label>
                 <select asp-for="IdVeterinar" class="form-control" asp-items="ViewBag.IdVeterinar"></select>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 10px">
                 <label class="control-label">Količina</label>
                 <input asp-for="Kolicina" class="form-control" />
                 <span asp-validation-for="Kolicina" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 20px">
                 <input type="submit" value="Dodaj" class="btn btn-primary" />
                 <a class="btn btn-secondary" asp-action="Index">Nazaj na zalogo</a>
             </div>

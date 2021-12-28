@@ -14,17 +14,17 @@
                 Veterinar
                 <select asp-for="IdVeterinar" class ="form-control" asp-items="ViewBag.IdVeterinar"></select>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 10px">
                 Datum in čas začetka
                 <input asp-for="DatumZacetka" class="form-control" />
                 <span asp-validation-for="DatumZacetka" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 10px">
                 Datum in čas konca
                 <input asp-for="DatumKonca" class="form-control" />
                 <span asp-validation-for="DatumKonca" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 20px">
                 <input type="submit" value="Ustvari" class="btn btn-primary" />
                 <a class="btn btn-secondary" asp-action="Index">Nazaj</a>
             </div>
