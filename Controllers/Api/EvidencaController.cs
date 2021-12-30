@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using E_Veterinar.Data;
 using E_Veterinar.Models;
+using E_Veterinar.Filters;
 
 namespace E_Veterinar.Controllers_Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiKeyAuth]
     public class EvidencaController : ControllerBase
     {
         private readonly eveterinarContext _context;
