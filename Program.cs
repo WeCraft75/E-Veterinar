@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 // nastavi spremenljivko connectionString za .useSqlServer(connectionString)
-var connectionString = builder.Configuration.GetConnectionString("AzureContext");
+var connectionString = builder.Configuration.GetConnectionString("EVeterinarContext");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
