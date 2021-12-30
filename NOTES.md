@@ -188,3 +188,6 @@ username: eveterinar-sa
 password: StrongPassw0rd!
 url: eveterinar-dbase.database.windows.net
 dbname: eveterinar
+
+## Azure Web app
+url: https://eveterinar.azurewebsites.net
