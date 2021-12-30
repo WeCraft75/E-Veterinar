@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Veterinar.Migrations
 {
     [DbContext(typeof(eveterinarContext))]
-    [Migration("20211228083007_InitialCreate")]
+    [Migration("20211230151911_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
