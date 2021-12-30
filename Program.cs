@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 // nastavi spremenljivko connectionString za .useSqlServer(connectionString)
-var connectionString = builder.Configuration.GetConnectionString("EVeterinarContext");
+var connectionString = builder.Configuration.GetConnectionString("AzureADContext");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -55,20 +55,20 @@ app.Run();
 
 
 static void CreateDbIfNotExists(IHost host)
+{
+    using (var scope = host.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        try
         {
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                try
-                {
-                    var context = services.GetRequiredService<eveterinarContext>();
-                    //context.Database.EnsureCreated();
-                    dbInit.Initialize(context);
-                }
-                catch (Exception ex)
-                {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred creating the DB.");
-                }
-            }
+            var context = services.GetRequiredService<eveterinarContext>();
+            //context.Database.EnsureCreated();
+            dbInit.Initialize(context);
         }
+        catch (Exception ex)
+        {
+            var logger = services.GetRequiredService<ILogger<Program>>();
+            logger.LogError(ex, "An error occurred creating the DB.");
+        }
+    }
+}

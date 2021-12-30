@@ -3,42 +3,85 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Spletna trgovina</h1>
-<hr>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ZahtevanaKolicina)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DatumNarocila)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdStrankaNavigation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ZahtevanaKolicina)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DatumNarocila)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdStrankaNavigation.IdStranka)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdNarocilo">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdNarocilo">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdNarocilo">Delete</a>
-            </td>
-        </tr>
+@if (User.IsInRole("Administrator") || User.IsInRole("Stranka"))
+{
+    <h1>Naročila</h1>
+    <hr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ZahtevanaKolicina)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DatumNarocila)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdStrankaNavigation)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ZahtevanaKolicina)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DatumNarocila)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdStrankaNavigation.IdStranka)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.IdNarocilo">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.IdNarocilo">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.IdNarocilo">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
-    </tbody>
-</table>
+else
+{
+    <h1>Spletna trgovina</h1>
+    <hr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ZahtevanaKolicina)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DatumNarocila)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdStrankaNavigation)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ZahtevanaKolicina)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DatumNarocila)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdStrankaNavigation.IdStranka)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.IdNarocilo">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
