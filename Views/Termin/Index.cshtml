@@ -47,7 +47,7 @@
                 @Html.DisplayFor(modelItem => item.JePotrjen)
             </td>
             <td>
-                @Html.ActionLink("Potrdi", "Edit", new { IdVeterinar=item.IdVeterinar, DatumZacetka=item.DatumZacetka, DatumKonca=item.DatumKonca }, new { @class = "btn btn-outline-secondary btn-sm" })
+                @Html.ActionLink("Potrdi", "Edit", new { Veterinar=item.IdVeterinar, DatumZacetka=item.DatumZacetka, DatumKonca=item.DatumKonca }, new { @class = "btn btn-outline-secondary btn-sm" })
                 @Html.ActionLink("Izbriši", "Delete", new { IdVeterinar=item.IdVeterinar, DatumZacetka=item.DatumZacetka, DatumKonca=item.DatumKonca }, new { @class = "btn btn-outline-danger btn-sm" })
             </td>
         </tr>
@@ -89,7 +89,7 @@
             </td>
             <td>
                 @Html.ActionLink("Potrdi", "Edit", new { IdVeterinar=item.IdVeterinar, DatumZacetka=item.DatumZacetka, DatumKonca=item.DatumKonca }, new { @class = "btn btn-outline-secondary btn-sm" })
-                @Html.ActionLink("Izbriši", "Delete", new { IdVeterinar=item.IdVeterinar, DatumZacetka=item.DatumZacetka, DatumKonca=item.DatumKonca }, new { @class = "btn btn-outline-danger btn-sm" })
+                @Html.ActionLink("Odjavi se", "Delete", new { IdVeterinar=item.IdVeterinar, DatumZacetka=item.DatumZacetka, DatumKonca=item.DatumKonca }, new { @class = "btn btn-outline-danger btn-sm" })
             </td>
         </tr>
 }

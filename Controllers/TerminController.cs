@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace E_Veterinar.Controllers
 {
-    [Authorize(Roles="Administrator, Veterinar")]
+    [Authorize]
     public class TerminController : Controller
     {
         private readonly eveterinarContext _context;
@@ -91,6 +91,7 @@ namespace E_Veterinar.Controllers
             {
                 return NotFound();
             }
+            
             ViewData["IdStranka"] = new SelectList(_context.Strankas, "IdStranka", "FullName", termin.IdStranka);
             ViewData["IdVeterinar"] = new SelectList(_context.Veterinars, "IdVeterinar", "IdVeterinar", termin.IdVeterinar);
             ViewData["DatumZacetka"] = new SelectList(_context.Termins, "DatumZacetka", "DatumZacetka", termin.DatumZacetka);
@@ -103,7 +104,7 @@ namespace E_Veterinar.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(DateTime DatumZacetka, DateTime DatumKonca, [Bind("IdVeterinar,DatumZacetka,DatumKonca,IdStranka,JeZaseden,JePotrjen")] Termin termin)
+        public async Task<IActionResult> Edit(DateTime DatumZacetka, DateTime DatumKonca, [Bind("IsUser,IdVeterinar,DatumZacetka,DatumKonca,IdStranka,JeZaseden,JePotrjen")] Termin termin)
         {
             if (DatumZacetka != termin.DatumZacetka && DatumKonca != termin.DatumKonca)
             {
