@@ -181,3 +181,10 @@ var UserRoles = new IdentityUserRole<string>[]
 context.UserRoles.AddRange(UserRoles);
 context.SaveChanges();
 ```
+
+
+## Azure DB:
+username: eveterinar-sa
+password: StrongPassw0rd!
+url: eveterinar-dbase.database.windows.net
+dbname: eveterinar
