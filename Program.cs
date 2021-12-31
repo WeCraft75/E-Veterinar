@@ -2,6 +2,9 @@ using E_Veterinar.Data;
 using E_Veterinar.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +21,9 @@ builder.Services.AddDbContext<eveterinarContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddControllers().AddJsonOptions(x =>
+   x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 var app = builder.Build();
 

@@ -27,7 +27,7 @@ namespace E_Veterinar.Controllers_Api
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Zaloga>>> GetZalogas()
         {
-            return await _context.Zalogas.ToListAsync();
+            return await _context.Zalogas.Include(z => z.IdIzdelekNavigation).Include(z => z.IdVeterinarNavigation).ToListAsync();
         }
 
         // GET: api/Zaloga/5
